@@ -10,8 +10,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/drone/go-scm/scm"
-	"github.com/drone/go-scm/scm/driver/github"
+	"github.com/ocraviotto/go-scm/scm"
+	"github.com/ocraviotto/go-scm/scm/driver/github"
 )
 
 var ctx context.Context

@@ -13,7 +13,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/drone/go-scm/scm"
+	"github.com/ocraviotto/go-scm/scm"
 
 	"github.com/google/go-cmp/cmp"
 )

@@ -14,9 +14,14 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/drone/go-scm/scm"
-	"github.com/drone/go-scm/scm/driver/internal/null"
+	"github.com/ocraviotto/go-scm/scm"
+	"github.com/ocraviotto/go-scm/scm/driver/internal/null"
 )
+
+// NewWebHookService creates a new instance of the webhook service without the rest of the client
+func NewWebHookService() scm.WebhookService {
+	return &webhookService{nil}
+}
 
 // Reference API Documentation:
 //   https://docs.atlassian.com/bitbucket-server/rest/5.11.1/bitbucket-rest.html

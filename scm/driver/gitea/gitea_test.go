@@ -6,8 +6,9 @@
 package gitea
 
 import (
-	"github.com/drone/go-scm/scm"
 	"testing"
+
+	"github.com/ocraviotto/go-scm/scm"
 )
 
 func TestClient(t *testing.T) {

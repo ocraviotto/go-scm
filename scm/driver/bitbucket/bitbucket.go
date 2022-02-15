@@ -14,8 +14,13 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/drone/go-scm/scm"
+	"github.com/ocraviotto/go-scm/scm"
 )
+
+// NewWebHookService creates a new instance of the webhook service without the rest of the client
+func NewWebHookService() scm.WebhookService {
+	return &webhookService{nil}
+}
 
 // New returns a new Bitbucket API client.
 func New(uri string) (*scm.Client, error) {

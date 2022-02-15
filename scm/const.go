@@ -122,6 +122,7 @@ const (
 	DriverStash
 	DriverCoding
 	DriverGitee
+	DriverFake // TODO
 )
 
 // String returns the string representation of Driver.
@@ -143,6 +144,9 @@ func (d Driver) String() (s string) {
 		return "coding"
 	case DriverGitee:
 		return "gitee"
+	case DriverFake:
+		// TODO
+		return "fake"
 	default:
 		return "unknown"
 	}

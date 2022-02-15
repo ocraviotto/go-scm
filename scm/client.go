@@ -86,6 +86,9 @@ type (
 		// Base URL for API requests.
 		BaseURL *url.URL
 
+		// Username is the optional user name for the client
+		Username string
+
 		// Services used for communicating with the API.
 		Driver        Driver
 		Linker        Linker

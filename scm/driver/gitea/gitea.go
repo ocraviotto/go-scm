@@ -15,11 +15,22 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/drone/go-scm/scm"
+	"code.gitea.io/sdk/gitea"
+	"github.com/ocraviotto/go-scm/scm"
 )
 
-// New returns a new Gitea API client.
+// NewWebHookService creates a new instance of the webhook service without the rest of the client
+func NewWebHookService() scm.WebhookService {
+	return &webhookService{nil}
+}
+
+// New returns a new Gitea API client without a token set
 func New(uri string) (*scm.Client, error) {
+	return NewWithToken(uri, "")
+}
+
+// NewWithToken returns a new Gitea API client with the token set.
+func NewWithToken(uri string, token string) (*scm.Client, error) {
 	base, err := url.Parse(uri)
 	if err != nil {
 		return nil, err
@@ -27,7 +38,7 @@ func New(uri string) (*scm.Client, error) {
 	if !strings.HasSuffix(base.Path, "/") {
 		base.Path = base.Path + "/"
 	}
-	client := &wrapper{new(scm.Client)}
+	client := &wrapper{Client: new(scm.Client)}
 	client.BaseURL = base
 	// initialize services
 	client.Driver = scm.DriverGitea
@@ -35,7 +46,40 @@ func New(uri string) (*scm.Client, error) {
 	client.Contents = &contentService{client}
 	client.Git = &gitService{client}
 	client.Issues = &issueService{client}
-	client.Milestones = & milestoneService{client}
+	client.Milestones = &milestoneService{client}
+	client.Organizations = &organizationService{client}
+	client.PullRequests = &pullService{client}
+	client.Repositories = &repositoryService{client}
+	client.Releases = &releaseService{client}
+	client.Reviews = &reviewService{client}
+	client.Users = &userService{client}
+	client.Webhooks = &webhookService{client}
+	return client.Client, nil
+}
+
+// NewWithBasicAuth returns a new Gitea API client with the basic auth set.
+func NewWithBasicAuth(uri string, user, password string) (*scm.Client, error) {
+	base, err := url.Parse(uri)
+	if err != nil {
+		return nil, err
+	}
+	if !strings.HasSuffix(base.Path, "/") {
+		base.Path = base.Path + "/"
+	}
+	client := &wrapper{Client: new(scm.Client)}
+	client.GiteaClient, err = gitea.NewClient(base.String(), gitea.SetBasicAuth(user, password))
+
+	if err != nil {
+		return nil, err
+	}
+	client.BaseURL = base
+	// initialize services
+	client.Driver = scm.DriverGitea
+	client.Linker = &linker{base.String()}
+	client.Contents = &contentService{client}
+	client.Git = &gitService{client}
+	client.Issues = &issueService{client}
+	client.Milestones = &milestoneService{client}
 	client.Organizations = &organizationService{client}
 	client.PullRequests = &pullService{client}
 	client.Repositories = &repositoryService{client}
@@ -50,6 +94,7 @@ func New(uri string) (*scm.Client, error) {
 // for making http requests and unmarshaling the response.
 type wrapper struct {
 	*scm.Client
+	GiteaClient *gitea.Client
 }
 
 // do wraps the Client.Do function by creating the Request and

@@ -10,9 +10,9 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/drone/go-scm/scm"
+	"github.com/ocraviotto/go-scm/scm"
 
-	"github.com/h2non/gock"
+	"gopkg.in/h2non/gock.v1"
 )
 
 func TestTransport(t *testing.T) {

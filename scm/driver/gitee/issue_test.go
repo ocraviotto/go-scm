@@ -10,10 +10,10 @@ import (
 	"io/ioutil"
 	"testing"
 
-	"github.com/drone/go-scm/scm"
+	"github.com/ocraviotto/go-scm/scm"
 
 	"github.com/google/go-cmp/cmp"
-	"github.com/h2non/gock"
+	"gopkg.in/h2non/gock.v1"
 )
 
 func TestEncodeAndDecodeIssueNumber(t *testing.T) {

@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/drone/go-scm/scm"
+	"github.com/ocraviotto/go-scm/scm"
 )
 
 func encodeListOptions(opts scm.ListOptions) string {

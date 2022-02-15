@@ -46,7 +46,7 @@ type (
 		// Update updates a repository file.
 		Update(ctx context.Context, repo, path string, params *ContentParams) (*Response, error)
 
-		// Delete deletes a reository file.
+		// Delete deletes a repository file.
 		Delete(ctx context.Context, repo, path string, params *ContentParams) (*Response, error)
 
 		// List returns a list of contents in a repository directory by path. It is

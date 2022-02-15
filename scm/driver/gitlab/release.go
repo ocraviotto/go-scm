@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/drone/go-scm/scm"
+	"github.com/ocraviotto/go-scm/scm"
 )
 
 type releaseService struct {

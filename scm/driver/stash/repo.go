@@ -11,7 +11,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/drone/go-scm/scm"
+	"github.com/ocraviotto/go-scm/scm"
 )
 
 type repository struct {
